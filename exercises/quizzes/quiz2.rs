@@ -27,7 +27,25 @@ mod my_module {
     use super::Command;
 
     // TODO: Complete the function as described above.
-    // pub fn transformer(input: ???) -> ??? { ??? }
+    pub fn transformer(input: Vec<(String, Command)>) -> Vec<String> {
+        let mut retval = Vec::new();
+        for (old_str, command) in input.iter() {
+            let new_str = match command {
+                Command::Uppercase => old_str.to_uppercase(),
+                Command::Trim => old_str.trim().to_string(),
+                Command::Append(value) => {
+                    let mut append_str = String::new();
+                    append_str.push_str(old_str);
+                    for _ in 0..*value {
+                        append_str.push_str("bar");
+                    }
+                    append_str
+                }
+            };
+            retval.push(new_str);
+        }
+        retval
+    }
 }
 
 fn main() {
@@ -38,6 +56,7 @@ fn main() {
 mod tests {
     // TODO: What do we need to import to have `transformer` in scope?
     // use ???;
+    use super::my_module::transformer;
     use super::Command;
 
     #[test]
@@ -53,10 +72,10 @@ mod tests {
         assert_eq!(
             output,
             [
-                "HELLO",
-                "all roads lead to rome!",
-                "foobar",
-                "barbarbarbarbarbar",
+                "HELLO".to_string(),
+                "all roads lead to rome!".to_string(),
+                "foobar".to_string(),
+                "barbarbarbarbarbar".to_string(),
             ]
         );
     }
