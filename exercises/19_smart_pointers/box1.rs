@@ -16,14 +16,16 @@ enum List {
     Nil,
 }
 
+use crate::List::{Cons, Nil};
+
 // TODO: Create an empty cons list.
 fn create_empty_list() -> List {
-    List::Nil
+    Nil
 }
 
 // TODO: Create a non-empty cons list.
 fn create_non_empty_list() -> List {
-    List::Cons(0, Box(List::Nil))
+    Cons(0, Box::new(Nil))
 }
 
 fn main() {
